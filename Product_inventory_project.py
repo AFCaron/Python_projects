@@ -30,3 +30,13 @@ while prog = 'run':
     elif prog = 'q':
         #quitting the program
         break
+
+        
+#program runs below
+#Creating a few 'default' products to populate the system
+Pd1 = Product(200, id1, 3)
+Pd2 = Product(100, id2, 10)
+Pd3 = Product(75, id3, 7)
+Pd4 = Product(125, id4, 9)
+
+product_list = [Pd1, Pd2, Pd3, Pd4]
