@@ -16,14 +16,7 @@ class Inventory(Product):
     def __init__(self, price, idn, quantity):
         Product.__init__(self, price, idn, quantity)
         
-    #Creating a few 'default' products to populate the system
-    Pd1 = Product(200, 'pump', 3)
-    Pd2 = Product(100, 'bearing', 10)
-    Pd3 = Product(75, 'hose', 7)
-    Pd4 = Product(125, 'washer', 9)
-
-    #Creating a dictionnary linking id mums and product names
-    product_Dic = {Pd1.idn : 'Pd1', Pd2.idn : 'Pd2', Pd3.idn : 'Pd3', Pd4.idn : 'Pd4'}    
+    
     
     #add to inventory    
     def add_product(self):
@@ -32,40 +25,61 @@ class Inventory(Product):
         self.quantity = quantity
         
         #creating an index for the product key using len(product_Dic)
-        index_dic = len(product_Dic)
-        #asking for the price per unit, name of the product,quantity
-        self.price, self.idn, self.quantity = input("the price per unit, name of the product, quantity").split()
-        #creating a new product and adding it to the product dictionary
-        npd = Iventory(self.price, self.idn, self.quantity)
-        product_Dic.update( {'Pd'+str(len(dic)) : npd.idn} )
+        index_dic = len(product_Dic) + 1
+        #updating the product dictionary
+        product_Dic.update( {'Pd'+str(index_dic) : [self.idn, self.price, self.quantity]} )
         
         
-#remove from inventory
-#sum of the inventory
-
-
 
 #program runs below
+#Creating a few 'default' products to populate the system
+Pd1 = Product(200, 'pump', 3)
+Pd2 = Product(100, 'bearing', 10)
+Pd3 = Product(75, 'hose', 7)
+Pd4 = Product(125, 'washer', 9)
 
+#Creating a dictionnary linking id mums and product names
+#product_Dic = {Pd1.idn : 'Pd1', Pd2.idn : 'Pd2', Pd3.idn : 'Pd3', Pd4.idn : 'Pd4'}
+product_Dic = {
+                'Pd1' : [Pd1.idn, Pd1.price, Pd1.quantity],
+                'Pd2' : [Pd2.idn, Pd2.price, Pd2.quantity],
+                'Pd3' : [Pd3.idn, Pd3.price, Pd3.quantity],
+                'Pd4' : [Pd4.idn, Pd4.price, Pd4.quantity]
+              }
         
 #create a loop to keep the program running
-prog = 'run'
-while prog == 'run':
+while True:
     #ask what the user wants to do
-    prog = input('what would you like to do? add (a) / reqmove (r) / sum inventory (s) / quit (q)')
+    prog = input('what would you like to do? add (a) / remove (r) / sum inventory (s) / quit (q)\n')
     if prog == 'a':
-        print('test_add')
+        
         #routine for adding a product
-            #generating unique ID number each time a product is added
+        #asking for the price per unit, name of the product,quantity
+        price, idn, quantity = input("the price per unit, name of the product, quantity").split()
+        pdct = Inventory(price, idn, quantity)
+        pdct.add_product()
+        
     elif prog == 'r':
-        print('test_remove')
         #routine for removing a product
-            #selecting the product thru its ID_number
+        to_del = input('Enter Product ID to be deleted\n')
+        #error handling in case a non existent ref is entered
+        try:
+            del product_Dic[to_del]
+            print(f'product {to_del} was removed from the database\n')
+        except:
+            print("couldn't find the product you are trying to delete\n")
+        
     elif prog == 's':
-        print('test_remove')
         #routine for sum of the inventory
+        tot_val = 0
+        print('[product name, price per unit, quantity]')
+        for keys in product_Dic:
+            tot_val += (int(product_Dic[keys][1]))*(int(product_Dic[keys][2]))
+            print(product_Dic[keys])
+        print(f"\nthe total value of the inventory is ${tot_val}")
     elif prog == 'q':
         #quitting the program
         break
+
         
 
