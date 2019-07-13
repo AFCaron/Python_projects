@@ -5,14 +5,14 @@ from tkinter import Tk
 sourceTxt = Tk().clipboard_get()
 
 #function to remove duplicates in the result lists
-def remove_duplicate(func):
-    remove_duplicate.nfunc = []
-    lfunc = len(func)
-    for i in range(len(func)-1):
-        for j in range(len(func)-1):
-            if len(func) > 1 and i == j and func[i] == func[j] and not func[i] in remove_duplicate.nfunc:
-                remove_duplicate.nfunc.append(func[i])
-    return  remove_duplicate.nfunc
+def remove_duplicate(lst):
+    remove_duplicate.nlst = []
+    
+    for i in range(len(lst)):
+        if not lst[i] in remove_duplicate.nlst:
+            remove_duplicate.nlst.append(lst[i])
+        
+    return  remove_duplicate.nlst
 
 
 #phone number finder
@@ -25,7 +25,7 @@ phoneRegex = re.compile(r'''(
     (\s*(ext|x|ext.)\s*\d{2,5})? # extension
     )''', re.VERBOSE)
 
-print(phoneRegex.findall(sourceTxt))
+#print(phoneRegex.findall(sourceTxt))
 mo1 = remove_duplicate(phoneRegex.findall(sourceTxt))
 
 
@@ -38,9 +38,9 @@ mailRegex = re.compile(r'''(
     .
     [a-z]+
     )''', re.VERBOSE)
-print(mailRegex.findall(sourceTxt))
+#print(mailRegex.findall(sourceTxt))
 mo2 = remove_duplicate(mailRegex.findall(sourceTxt))
-print(mo2)
+#print(mo2)
 
 #getting only the complete number match 
 if len(mo1) > 0:
