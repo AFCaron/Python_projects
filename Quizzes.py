@@ -1,3 +1,4 @@
+# IN PROGRESS
 #create quizzes
 import random
 state_caps = {
@@ -60,29 +61,22 @@ key_lst = list(state_caps.keys())
 
 #for stdt in range(nb_stdt): #finish that loop later
 #create a file with all the questions
-
 random.shuffle(key_lst)
 
 #loop1 ask the question
-for caps in key_lst:
+for caps in range(len(key_lst)):
     #create a mini list of 4 possible answers
     q_lst = [key_lst[caps]]
-    ind_a = key_lst.index(caps)
+    ind_a = key_lst.index(key_lst[caps])
     
-    print(ind_a)
     for i in range(0, 3):
         n_ind = random.randint(0, 46)
-        if ind_a != n_ind:
+        if ind_a != n_ind and not key_lst[n_ind] in q_lst :
             q_lst.append(key_lst[n_ind])
         else:
-            q_lst.append(key_lst[[46 - n_ind]]
-            
-    random.shuffle(q_lst) #prob here
-    
-    print(f'Whats the capital city of {caps}\n')
-    
+            q_lst.append(key_lst[46 - n_ind])
+
+    random.shuffle(q_lst)
+    print(f"Whats the capital city of {key_lst[caps]}\n")
     for ans in q_lst:
         print(f'{state_caps[ans]}?\n')
-
-
-#print(key_lst)
